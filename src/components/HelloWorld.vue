@@ -2,7 +2,11 @@
   <div class="position-absolute-center text-center">
     <!-- 測試滾動才發現播放動畫 -->
     <!-- <div style="margin-bottom:2000px;"></div> -->
-    <CountUp ref="countupRef" v-bind="property" class="text-30">
+    <CountUp ref="countupRef"
+             v-bind="property"
+             class="text-30"
+             @init="init"
+             @finished="finished">
       <!-- 前贅字 -->
       <template #prefix>
         <span class="text-14 me-2" :style="textFixSlot['prefix'].style">
@@ -56,16 +60,21 @@
       </div>
     </div>
 
-    <button type='button'
-            class='btn btn-primary me-5'
-            @click="countupRef.init()">
-      初始化播放(包含延遲播放時間)
-    </button>
-    <button type='button'
-            class='btn btn-primary'
-            @click="countupRef.restart()">
-      重新播放
-    </button>
+    <div class="d-flex align-items-center justify-content-center">
+      <p class="text-20 me-5">{{ isPlaying?'播放中':'暫停中' }}</p>
+      <button type='button'
+              class='btn btn-primary me-5'
+              @click="countupRef.init()"
+              :disabled="isPlaying">
+        初始化播放(包含延遲播放時間)
+      </button>
+      <button type='button'
+              class='btn btn-primary'
+              @click="countupRef.restart()"
+              :disabled="isPlaying">
+        重新播放
+      </button>
+    </div>
   </div>
 </template>
 
@@ -74,6 +83,7 @@ import CountUp from 'vue-countup-v3'
 import { ref } from 'vue'
 
 const countupRef = ref(null)
+const isPlaying = ref(false)
 const textFixSlot = ref({
   prefix: { // 前贅字
     cnName: '前贅字',
@@ -142,14 +152,16 @@ const setupProperty = ref({
   }
 })
 
-// let countUp = null // eslint-disable-line
-// const onInit = (ctx) => {
-//   console.log('init', ctx)
-//   countUp = ctx
-// }
-// const onFinished = () => {
-//   console.log('finished')
-// }
+// Countup 實體初始化完成後觸發
+function init (e) {
+  console.log('Countup 初始化完畢', e)
+  if (!e.paused) isPlaying.value = true
+}
+// 倒數計時結束後觸發
+function finished () {
+  console.log('播放完畢')
+  isPlaying.value = false
+}
 </script>
 
 <style lang='scss' scope></style>
