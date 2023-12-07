@@ -55,6 +55,17 @@
         </div>
       </div>
     </div>
+
+    <button type='button'
+            class='btn btn-primary me-5'
+            @click="countupRef.init()">
+      初始化播放(包含延遲播放時間)
+    </button>
+    <button type='button'
+            class='btn btn-primary'
+            @click="countupRef.restart()">
+      重新播放
+    </button>
   </div>
 </template>
 
@@ -73,7 +84,7 @@ const textFixSlot = ref({
   suffix: { // 後贅字
     cnName: '後贅字',
     enName: 'suffix',
-    vModel: '多個人造訪你的網站',
+    vModel: '個人造訪你的網站',
     style: ['color:blue;']
   }
 })
