@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/countup/', //! 請輸入儲存庫名稱
+  base: '/vue-countup-v3/', //! 請輸入儲存庫名稱
   plugins: [vue()],
   resolve: {
     alias: [
