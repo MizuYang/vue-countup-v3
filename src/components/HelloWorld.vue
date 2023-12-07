@@ -1,6 +1,8 @@
 <template>
   <div class="position-absolute-center text-center">
-    <CountUp v-bind="property" class="text-20">
+    <!-- 測試滾動才發現播放動畫 -->
+    <!-- <div style="margin-bottom:2000px;"></div> -->
+    <CountUp ref="countupRef" v-bind="property" class="text-30">
       <!-- 前贅字 -->
       <template #prefix>
         <span class="text-14 me-2" :style="textFixSlot['prefix'].style">
@@ -40,6 +42,7 @@
           </div>
         </div>
       </div>
+
       <!-- 屬性 -->
       <div v-for="item in setupProperty" :key="item.enName">
         <div class="form-floating mb-3">
@@ -59,6 +62,7 @@
 import CountUp from 'vue-countup-v3'
 import { ref } from 'vue'
 
+const countupRef = ref(null)
 const textFixSlot = ref({
   prefix: { // 前贅字
     cnName: '前贅字',
@@ -74,19 +78,25 @@ const textFixSlot = ref({
   }
 })
 const property = ref({
-  endVal: '123456789', // 结束值
+  endVal: String(Math.random() * 10).split('.').join(''), // 结束值
   startVal: 0, // 起始值
   duration: 5, // 動畫時間(秒)
-  decimalPlaces: 2, // 小數點位數
+  decimalPlaces: 0, // 小數點位數
   // autoplay: false, // 是否自動開始
-  loop: true, // 重複次數(布林、數字)
+  loop: false, // 重複次數(布林、數字)
   delay: 2, // 循環的間隔時間(秒)
   options: {
-    // CountUp 套件的其他選項
-    separator: ',',
-    decimal: '.'
+    useGrouping: true, // 是否開啟千分位
+    separator: ',', // 千分位使用的符號
+    decimal: '.',
+    enableScrollSpy: true, // 在可視範圍內才開始動畫
+    scrollSpyDelay: 2000 // 目標進入可視範圍後的延遲播放時間 (毫秒)
+    // formattingFn: function (n) { // 格式化
+    // return `${n}測試XD`
+    // }
   }
 })
+
 // 用來迴圈跑出設定區塊的資料
 const setupProperty = ref({
   endVal: {
