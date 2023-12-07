@@ -1,13 +1,10 @@
-- Vue3 Vite 模板
-  - Vue-Router
-  - Pinia
-  - Bootstrap5
-  - ESLint-standard
-  - Axios
+<a href="https://mizuyang.github.io/vue-countup-v3/#/">Demo</a>
 
 
-- 記得將儲存庫名稱寫入 (搜尋: 儲存庫名稱)
-  - vite.config.js
-    - 靜態頁面路徑設置
-  - deploy.sh
-    - 自動部署指令：.\deploy.sh
+- vue-countup-v3
+  - slot
+    - 前贅詞
+    - 後贅詞
+  - 屬性配置
+  - options 配置
+  - 事件
